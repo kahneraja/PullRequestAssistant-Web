@@ -1,21 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Chart1 from "./Chart1";
+import Chart2 from "./Chart2";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            metrics: [],
+        };
+    }
+
+    componentDidMount() {
+        fetch('http://stash-pull-request-assistant.herokuapp.com/metrics').then(response => {
+            response.json().then((json) => {
+                this.setState({metrics: json})
+            })
+        })
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div>
+                    <Chart1 metrics={this.state.metrics}></Chart1>
+                </div>
+                <div>
+                    <Chart2 metrics={this.state.metrics}></Chart2>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
