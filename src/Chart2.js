@@ -60,7 +60,7 @@ class Chart2 extends Component {
                 .sum()
                 .value()
 
-            let averageHours = parseInt(totalHours / createdPullRequests.length);
+            let averageHours = parseInt(totalHours / createdPullRequests.length, 10);
 
             return {
                 changeCount: changeCount,
