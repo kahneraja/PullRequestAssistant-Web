@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import _ from 'lodash'
 
-class Chart1 extends Component {
+class Chart3 extends Component {
 
     constructor(props) {
         super(props)
@@ -29,66 +29,60 @@ class Chart1 extends Component {
     }
 
     renderChart(pullRequests) {
-        let dates = _.chain(pullRequests)
+        let commentCountList = _.chain(pullRequests)
             .map((pullRequest) => {
-                return pullRequest.closed
+                return pullRequest.comments
             })
-            .uniqBy((closed) => {
-                return closed
+            .uniqBy((commentCount) => {
+                return commentCount
             })
-            .sortBy((closed) => {
-                return closed
+            .sortBy((commentCount) => {
+                return commentCount
             })
             .value()
 
-        let data = _.chain(dates).map((date) => {
+        let data = _.chain(commentCountList).map((commentCount) => {
 
             let createdPullRequests = _.chain(pullRequests)
                 .filter((pullRequest) => {
-                        return pullRequest.created === date
+                        return pullRequest.comments === commentCount
                     }
                 )
                 .value()
 
-            let closedPullRequests = _.chain(pullRequests)
-                .filter((pullRequest) => {
-                        return pullRequest.closed === date
-                    }
-                )
-                .value()
-
-            let totalHours = _.chain(closedPullRequests)
+            let totalHours = _.chain(createdPullRequests)
                 .map((pullRequest) => {
                     return pullRequest.hours
                 })
                 .sum()
                 .value()
 
-            let averageHours = parseInt(totalHours / closedPullRequests.length, 10);
+            let averageHours = parseInt(totalHours / createdPullRequests.length, 10);
 
             return {
-                date: date,
+                commentCount: commentCount,
                 created: createdPullRequests.length,
-                approved: closedPullRequests.length,
                 hours: averageHours
             }
 
+
         }).value()
+
+        console.log(data)
 
         return (
             <div className="App-chart">
-                <div><strong>Pull Request Time Metrics</strong></div>
+                <div><strong>Pull Request Size Metrics</strong></div>
                 <ResponsiveContainer width='100%' aspect={4.0 / 2.0}>
-
                     <LineChart data={data}>
-                        <Line name={"Approved"} type="monotone" dataKey="approved" stroke="#1D9DFC" strokeWidth={3}
-                              dot={false} legendType={"rect"} yAxisId="A"/>
-                        <Line name={"Hours in review"} type="monotone" dataKey="hours" stroke="#FC416A" strokeWidth={3}
-                              dot={false} legendType={"rect"} yAxisId="B"/>
-                        <Line name={"Created"} type="monotone" dataKey="created" stroke="#DDDDDD" strokeWidth={3}
-                              dot={false} legendType={"rect"} yAxisId="C"/>
+                        <Line name="Comments" type="monotone" dataKey="commentCount" stroke="#1D9DFC" strokeWidth={3}
+                              dot={false} legendType="rect" yAxisId="A"/>
+                        <Line name="Hours in review" type="monotone" dataKey="hours" stroke="#FC416A" strokeWidth={3}
+                              dot={false} legendType="rect" yAxisId="B"/>
+                        <Line name="Created" type="monotone" dataKey="created" stroke="#DDDDDD" strokeWidth={3}
+                              dot={false} legendType="rect" yAxisId="C"/>
                         <Tooltip/>
-                        <XAxis dataKey="date" hide={true}/>
+                        <XAxis hide={true}/>
                         <YAxis yAxisId="A" hide={true}/>
                         <YAxis yAxisId="B" hide={true}/>
                         <YAxis yAxisId="C" hide={true}/>
@@ -102,4 +96,4 @@ class Chart1 extends Component {
     }
 }
 
-export default Chart1
+export default Chart3

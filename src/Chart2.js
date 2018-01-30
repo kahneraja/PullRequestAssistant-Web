@@ -14,7 +14,7 @@ class Chart2 extends Component {
 
     render() {
         return (
-            <div className="Chart1">
+            <div>
                 {this.buildChart()}
             </div>
         )
@@ -99,7 +99,7 @@ class Chart2 extends Component {
     }
 
     roundToNearest(num) {
-        return Math.round(num / 50.0) * 50;
+        return Math.round(num / 50.0) * 50
     }
 }
 
