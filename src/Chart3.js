@@ -68,8 +68,6 @@ class Chart3 extends Component {
 
         }).value()
 
-        console.log(data)
-
         return (
             <div className="App-chart">
                 <div><strong>Pull Request Size Metrics</strong></div>

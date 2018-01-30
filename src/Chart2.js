@@ -91,8 +91,6 @@ class Chart2 extends Component {
             </div>
         )
 
-        console.log(data)
-
     }
 
     roundToNearest(num) {
