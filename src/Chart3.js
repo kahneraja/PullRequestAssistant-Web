@@ -75,12 +75,12 @@ class Chart3 extends Component {
                 <div><strong>Pull Request Size Metrics</strong></div>
                 <ResponsiveContainer width='100%' aspect={4.0 / 2.0}>
                     <LineChart data={data}>
+                        <Line name="Created" type="monotone" dataKey="created" stroke="#DDDDDD" strokeWidth={3}
+                              dot={false} legendType="rect" yAxisId="C"/>
                         <Line name="Comments" type="monotone" dataKey="commentCount" stroke="#1D9DFC" strokeWidth={3}
                               dot={false} legendType="rect" yAxisId="A"/>
                         <Line name="Hours in review" type="monotone" dataKey="hours" stroke="#FC416A" strokeWidth={3}
                               dot={false} legendType="rect" yAxisId="B"/>
-                        <Line name="Created" type="monotone" dataKey="created" stroke="#DDDDDD" strokeWidth={3}
-                              dot={false} legendType="rect" yAxisId="C"/>
                         <Tooltip/>
                         <XAxis hide={true}/>
                         <YAxis yAxisId="A" hide={true}/>
