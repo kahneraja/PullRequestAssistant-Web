@@ -3,22 +3,33 @@ import React, {Component} from 'react'
 class OAuth extends Component {
     render() {
         let code = this.getParameterByName("code")
+        let domain = process.env.REACT_APP_API_DOMAIN
+        let client_id = process.env.REACT_APP_GITHUB_CLIENT_ID
+        let client_secret = process.env.REACT_APP_GITHUB_CLIENT_SECRET
         if (code) {
-            let loginUrl = `https://github.com/login/oauth/access_token?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}&code=${code}`
-            fetch(loginUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+
+            let url = `${domain}/auth`
+            let body = {
+                'client_id': client_id,
+                'client_secret': client_secret,
+                'code': code
+            }
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-            ).then(response => {
+            }).then(response => {
                 response.json().then((json) => {
                     console.log(json.access_token)
                 })
             })
         }
 
-        let authorizeUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo,read:org,read:user&redirect_uri=${window.location.href}`
+        let authorizeUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=repo,read:org,read:user&redirect_uri=${window.location.href}`
 
         return (
             <div>

@@ -59,9 +59,20 @@ class Chart2 extends Component {
 
             let averageHours = parseInt(totalHours / createdPullRequests.length, 10);
 
+
+            let totalComments = _.chain(createdPullRequests)
+                .map((pullRequest) => {
+                    return pullRequest.comments
+                })
+                .sum()
+                .value()
+
+            let averageComments = parseInt(totalComments / createdPullRequests.length, 10);
+
             return {
                 changeCount: changeCount,
                 created: createdPullRequests.length,
+                comments: averageComments,
                 hours: averageHours
             }
 
@@ -75,6 +86,8 @@ class Chart2 extends Component {
                     <LineChart data={data}>
                         <Line name="Created" type="monotone" dataKey="created" stroke="#DDDDDD" strokeWidth={3}
                               dot={false} legendType="rect" yAxisId="C"/>
+                        <Line name="Comments" type="monotone" dataKey="comments" stroke="#5bab43" strokeWidth={3}
+                              dot={false} legendType="rect" yAxisId="D"/>
                         <Line name="Changes" type="monotone" dataKey="changeCount" stroke="#1D9DFC" strokeWidth={3}
                               dot={false} legendType="rect" yAxisId="A"/>
                         <Line name="Hours in review" type="monotone" dataKey="hours" stroke="#FC416A" strokeWidth={3}
@@ -84,6 +97,7 @@ class Chart2 extends Component {
                         <YAxis yAxisId="A" hide={true}/>
                         <YAxis yAxisId="B" hide={true}/>
                         <YAxis yAxisId="C" hide={true}/>
+                        <YAxis yAxisId="D" hide={true}/>
                         <Legend position="top" verticalAlign="top"/>
                     </LineChart>
 
