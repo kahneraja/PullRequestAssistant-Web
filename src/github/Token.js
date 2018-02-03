@@ -30,17 +30,17 @@ class Token extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            response.json().then((json) => {
-                this.setState({token: json.access_token})
+            response.json().then((auth) => {
+                localStorage.setItem('auth', JSON.stringify(auth));
+                this.props.history.push("/");
             })
         })
     }
 
     render() {
-        console.log("render")
         return (
             <div>
-                {this.state.token}
+                Resolving auth...
             </div>
         )
     }
