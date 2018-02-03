@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Chart1 from "./Chart1";
 import Chart2 from "./Chart2";
 
-class App extends Component {
+class Charts extends Component {
 
     constructor(props) {
         super(props);
@@ -21,7 +21,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div>
                 <div>
                     <Chart1 metrics={this.state.metrics}></Chart1>
                 </div>
@@ -33,4 +33,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Charts

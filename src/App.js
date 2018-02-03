@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
 import './App.css';
-import OAuth from "./OAuth";
-import Charts from "./Charts";
+import Main from "./Main";
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <div>
-                    <OAuth></OAuth>
-                </div>
-                <div>
-                    <Charts></Charts>
-                </div>
+                <Main />
             </div>
         )
     }
 }
 
-export default App;
+export default App
