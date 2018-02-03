@@ -6,7 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import Token from "./components/github/Token";
 import JsonStore from "./JsonStore";
 import GitHubGateway from "./gateways/GitHubGateway";
-import RepoList from "./components/github/RepoList";
+import OrgList from "./components/github/OrgList";
 
 class Main extends Component {
     render() {
@@ -28,8 +28,8 @@ class Main extends Component {
                     <Route path='/github/token' component={(props) =>
                         <Token {...props} gitHubGateway={gitHubGateway}/>
                     }/>
-                    <Route path='/github/repo-list' component={(props) =>
-                        <RepoList {...props} gitHubGateway={gitHubGateway}/>
+                    <Route path='/github/org-list' component={(props) =>
+                        <OrgList {...props} gitHubGateway={gitHubGateway}/>
                     }/>
                 </Switch>
             </main>
