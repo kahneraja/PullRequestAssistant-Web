@@ -7,6 +7,7 @@ import Token from "./components/github/Token";
 import JsonStore from "./JsonStore";
 import GitHubGateway from "./gateways/GitHubGateway";
 import OrgList from "./components/github/OrgList";
+import UserGateway from "./gateways/UserGateway";
 
 class Main extends Component {
     render() {
@@ -16,6 +17,10 @@ class Main extends Component {
             process.env.REACT_APP_API_DOMAIN,
             process.env.REACT_APP_GITHUB_CLIENT_ID,
             process.env.REACT_APP_GITHUB_CLIENT_SECRET,
+            jsonStore
+        )
+        let userGateway = new UserGateway(
+            process.env.REACT_APP_API_DOMAIN,
             jsonStore
         )
 
@@ -29,7 +34,10 @@ class Main extends Component {
                         <Token {...props} gitHubGateway={gitHubGateway}/>
                     }/>
                     <Route path='/github/org-list' component={(props) =>
-                        <OrgList {...props} gitHubGateway={gitHubGateway}/>
+                        <OrgList {...props}
+                                 gitHubGateway={gitHubGateway}
+                                 userGateway={userGateway}
+                        />
                     }/>
                 </Switch>
             </main>

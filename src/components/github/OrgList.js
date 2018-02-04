@@ -16,9 +16,9 @@ class OrgList extends Component {
         })
     }
 
-    getRepos(org) {
-        this.props.gitHubGateway.getRepos(org).then((repos) => {
-            this.setState({repos: repos})
+    addRepo(org) {
+        this.props.userGateway.addOrg(org).then(() => {
+            this.props.history.push("/")
         })
     }
 
@@ -28,13 +28,7 @@ class OrgList extends Component {
                 <h2>Organizations</h2>
                 <div>
                     {this.state.orgs.map(org =>
-                        <div key={org.id} onClick={() => this.getRepos(org.login)}>{org.login}</div>
-                    )}
-                </div>
-                <h2>Repositories</h2>
-                <div>
-                    {this.state.repos.map(repo =>
-                        <div key={repo.id}>{repo.full_name}</div>
+                        <div key={org.id} onClick={() => this.addRepo(org)}>{org.login}</div>
                     )}
                 </div>
             </div>

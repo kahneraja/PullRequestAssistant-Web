@@ -29,19 +29,6 @@ class GitHubGateway {
         })
     }
 
-    getRepos(org) {
-        let token = this.jsonStore.get('auth').githubToken
-        let url = `https://api.github.com/orgs/${org}/repos`
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        }).then(response => {
-            return response.json()
-        })
-    }
-
     getOrgs() {
         let token = this.jsonStore.get('auth').githubToken
         let url = `https://api.github.com/user/orgs`
