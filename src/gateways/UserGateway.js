@@ -7,7 +7,7 @@ class UserGateway {
 
     addOrg(org) {
         console.log(org)
-        let userId = this.jsonStore.get('auth')._id
+        let userId = this.jsonStore.get('id')
         let url = `${this.domain}/users/${userId}/orgs`
         return fetch(url, {
             method: 'POST',

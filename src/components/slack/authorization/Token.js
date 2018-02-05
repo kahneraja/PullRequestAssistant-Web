@@ -5,7 +5,7 @@ class Token extends Component {
 
     componentDidMount() {
         let queryString = QueryString.parse(this.props.location.search)
-        this.props.gitHubGateway.auth(queryString.code).then(() => {
+        this.props.slackGateway.createToken(queryString.code).then(() => {
             this.props.history.push("/")
         })
     }

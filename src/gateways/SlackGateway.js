@@ -1,4 +1,4 @@
-class GitHubGateway {
+class SlackGateway {
 
     constructor(domain, clientId, clientSecret, jsonStore) {
         this.domain = domain
@@ -8,11 +8,14 @@ class GitHubGateway {
     }
 
     createToken(code) {
-        let url = `${this.domain}/github/token`
+        let url = `${this.domain}/slack/token`
+        let redirect_uri = `http://${window.location.host}/slack/authorization/token`
         let body = {
             'client_id': this.clientId,
             'client_secret': this.clientSecret,
-            'code': code
+            'code': code,
+            'userId': this.jsonStore.get('id'),
+            'redirect_uri': redirect_uri
         }
 
         return fetch(url, {
@@ -24,25 +27,11 @@ class GitHubGateway {
             }
         }).then(response => {
             response.json().then((response) => {
-                this.jsonStore.set('gitHubToken', JSON.stringify(response.gitHubToken))
-                this.jsonStore.set('id', JSON.stringify(response._id))
+                this.jsonStore.set('slackToken', JSON.stringify(response.slackToken))
             })
-        })
-    }
-
-    getOrgs() {
-        let token = this.jsonStore.get('gitHubToken')
-        let url = `https://api.github.com/user/orgs`
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        }).then(response => {
-            return response.json()
         })
     }
 
 }
 
-export default GitHubGateway
+export default SlackGateway
