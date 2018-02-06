@@ -5,13 +5,16 @@ class OrgMemberList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orgs: []
+            members: []
         };
     }
 
     componentDidMount() {
         this.props.userGateway.getOrgs().then((orgs) => {
-            this.setState({orgs: orgs})
+            let org = orgs[0]
+            this.props.gitHubGateway.getOrgMembers(org).then((members) => {
+                this.setState({members: members})
+            })
         })
     }
 
@@ -19,6 +22,11 @@ class OrgMemberList extends Component {
         return (
             <div >
                 <h2>Members</h2>
+                <div>
+                    {this.state.members.map(member =>
+                        <div key={member.id}>{member.login}</div>
+                    )}
+                </div>
             </div>
         )
     }

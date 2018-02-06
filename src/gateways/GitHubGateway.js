@@ -43,6 +43,19 @@ class GitHubGateway {
         })
     }
 
+    getOrgMembers(org) {
+        let token = this.jsonStore.get('gitHubToken')
+        let url = `${org.url}/members?per_page=100`
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `token ${token}`
+            }
+        }).then(response => {
+            return response.json()
+        })
+    }
+
 }
 
 export default GitHubGateway
