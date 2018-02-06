@@ -62,7 +62,7 @@ class Main extends Component {
                     }/>
                     <Route path='/slack/members' component={(props) =>
                         <SlackMemberList {...props}
-                                         slackGateway={slackGateway}
+                                         userGateway={userGateway}
                         />
                     }/>
                 </Switch>

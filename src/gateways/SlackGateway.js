@@ -32,18 +32,6 @@ class SlackGateway {
         })
     }
 
-    getMembers() {
-        let token = this.jsonStore.get('slackToken')
-        let url = `https://slack.com/api/users.list?limit=200`
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(response => {
-            return response.json()
-        })
-    }
 
 }
 

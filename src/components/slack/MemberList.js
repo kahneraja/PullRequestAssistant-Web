@@ -10,8 +10,8 @@ class MemberList extends Component {
     }
 
     componentDidMount() {
-        this.props.slackGateway.getMembers().then((response) => {
-            this.setState({members: response.members})
+        this.props.userGateway.getSlackMembers().then((members) => {
+            this.setState({members: members})
         })
     }
 
@@ -21,7 +21,7 @@ class MemberList extends Component {
                 <h2>Members</h2>
                 <div>
                     {this.state.members.map(member =>
-                        <div key={member.id}>{member.profile.real_name} @{member.name}</div>
+                        <div key={member.id}>{member.profile.real_name} @{member.real_name}</div>
                     )}
                 </div>
             </div>

@@ -32,6 +32,19 @@ class UserGateway {
         })
     }
 
+    getSlackMembers() {
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/slack/members`
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json()
+        })
+    }
+
 }
 
 export default UserGateway
