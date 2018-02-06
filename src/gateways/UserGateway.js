@@ -6,7 +6,6 @@ class UserGateway {
     }
 
     addOrg(org) {
-        console.log(org)
         let userId = this.jsonStore.get('id')
         let url = `${this.domain}/users/${userId}/orgs`
         return fetch(url, {
@@ -15,6 +14,19 @@ class UserGateway {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(org)
+        }).then(response => {
+            return response.json()
+        })
+    }
+
+    getOrgs() {
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/orgs`
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(response => {
             return response.json()
         })

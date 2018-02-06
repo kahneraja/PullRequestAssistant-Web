@@ -11,6 +11,7 @@ import GitHubGateway from "./gateways/GitHubGateway"
 import OrgList from "./components/github/OrgList"
 import UserGateway from "./gateways/UserGateway"
 import SlackGateway from "./gateways/SlackGateway"
+import OrgMemberList from "./components/github/OrgMemberList";
 
 class Main extends Component {
     render() {
@@ -42,7 +43,13 @@ class Main extends Component {
                     <Route path='/github/authorization/token' component={(props) =>
                         <GitHubAuthorizationToken {...props} gitHubGateway={gitHubGateway}/>
                     }/>
-                    <Route path='/github/org-list' component={(props) =>
+                    <Route path='/github/orgs/members' component={(props) =>
+                        <OrgMemberList {...props}
+                                       gitHubGateway={gitHubGateway}
+                                       userGateway={userGateway}
+                        />
+                    }/>
+                    <Route path='/github/orgs' component={(props) =>
                         <OrgList {...props}
                                  gitHubGateway={gitHubGateway}
                                  userGateway={userGateway}
