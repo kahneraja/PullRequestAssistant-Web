@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class OrgMemberList extends Component {
+class MemberList extends Component {
 
     constructor(props) {
         super(props);
@@ -10,11 +10,8 @@ class OrgMemberList extends Component {
     }
 
     componentDidMount() {
-        this.props.userGateway.getOrgs().then((orgs) => {
-            let org = orgs[0]
-            this.props.gitHubGateway.getOrgMembers(org).then((members) => {
-                this.setState({members: members})
-            })
+        this.props.slackGateway.getMembers().then((response) => {
+            this.setState({members: response.members})
         })
     }
 
@@ -24,7 +21,7 @@ class OrgMemberList extends Component {
                 <h2>Members</h2>
                 <div>
                     {this.state.members.map(member =>
-                        <div key={member.id}>{member.login}</div>
+                        <div key={member.id}>{member.profile.real_name} @{member.name}</div>
                     )}
                 </div>
             </div>
@@ -32,4 +29,4 @@ class OrgMemberList extends Component {
     }
 }
 
-export default OrgMemberList
+export default MemberList

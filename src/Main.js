@@ -11,7 +11,8 @@ import GitHubGateway from "./gateways/GitHubGateway"
 import OrgList from "./components/github/OrgList"
 import UserGateway from "./gateways/UserGateway"
 import SlackGateway from "./gateways/SlackGateway"
-import OrgMemberList from "./components/github/OrgMemberList";
+import GitHubMemberList from "./components/github/MemberList"
+import SlackMemberList from "./components/slack/MemberList"
 
 class Main extends Component {
     render() {
@@ -43,10 +44,10 @@ class Main extends Component {
                     <Route path='/github/authorization/token' component={(props) =>
                         <GitHubAuthorizationToken {...props} gitHubGateway={gitHubGateway}/>
                     }/>
-                    <Route path='/github/orgs/members' component={(props) =>
-                        <OrgMemberList {...props}
-                                       gitHubGateway={gitHubGateway}
-                                       userGateway={userGateway}
+                    <Route path='/github/members' component={(props) =>
+                        <GitHubMemberList {...props}
+                                          gitHubGateway={gitHubGateway}
+                                          userGateway={userGateway}
                         />
                     }/>
                     <Route path='/github/orgs' component={(props) =>
@@ -58,6 +59,11 @@ class Main extends Component {
                     <Route path='/slack/authorization/grant' component={SlackAuthorizationGrant}/>
                     <Route path='/slack/authorization/token' component={(props) =>
                         <SlackAuthorizationToken {...props} slackGateway={slackGateway}/>
+                    }/>
+                    <Route path='/slack/members' component={(props) =>
+                        <SlackMemberList {...props}
+                                         slackGateway={slackGateway}
+                        />
                     }/>
                 </Switch>
             </main>
