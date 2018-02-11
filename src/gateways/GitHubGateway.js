@@ -24,8 +24,7 @@ class GitHubGateway {
             }
         }).then(response => {
             response.json().then((response) => {
-                this.jsonStore.set('gitHubToken', JSON.stringify(response.gitHubToken))
-                this.jsonStore.set('id', JSON.stringify(response._id))
+                this.jsonStore.set('id', JSON.stringify(response.id))
             })
         })
     }
