@@ -8,7 +8,7 @@ class GitHubGateway {
     }
 
     createToken(code) {
-        let url = `${this.domain}/github/token`
+        let url = `${this.domain}/github/tokens`
         let body = {
             'client_id': this.clientId,
             'client_secret': this.clientSecret,
