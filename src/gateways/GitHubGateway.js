@@ -29,22 +29,36 @@ class GitHubGateway {
         })
     }
 
+    addOrg(org) {
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/orgs`
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(org)
+        }).then(response => {
+            return response.json()
+        })
+    }
+
     getOrgs() {
-        let token = this.jsonStore.get('gitHubToken')
-        let url = `https://api.github.com/user/orgs`
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/github/orgs`
         return fetch(url, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${token}`
+                'Content-Type': 'application/json'
             }
         }).then(response => {
             return response.json()
         })
     }
 
-    getOrgMembers(org) {
-        let token = this.jsonStore.get('gitHubToken')
-        let url = `${org.url}/members?per_page=100`
+    getMembers(org) {
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/github/members`
         return fetch(url, {
             method: 'GET',
             headers: {

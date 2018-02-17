@@ -10,7 +10,7 @@ class MemberList extends Component {
     }
 
     componentDidMount() {
-        this.props.userGateway.getSlackMembers().then((members) => {
+        this.props.slackGateway.getMembers().then((members) => {
             this.setState({members: members})
         })
     }

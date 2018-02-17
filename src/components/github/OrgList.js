@@ -11,13 +11,13 @@ class OrgList extends Component {
     }
 
     componentDidMount() {
-        this.props.userGateway.getGithubOrgs().then((orgs) => {
+        this.props.githubGateway.getOrgs().then((orgs) => {
             this.setState({orgs: orgs})
         })
     }
 
     addRepo(org) {
-        this.props.userGateway.addOrg(org).then(() => {
+        this.props.githubGateway.addOrg(org).then(() => {
             this.props.history.push("/")
         })
     }

@@ -10,9 +10,9 @@ class MemberList extends Component {
     }
 
     componentDidMount() {
-        this.props.userGateway.getOrgs().then((orgs) => {
+        this.props.githubGateway.getOrgs().then((orgs) => {
             let org = orgs[0]
-            this.props.gitHubGateway.getOrgMembers(org).then((members) => {
+            this.props.gitHubGateway.getMembers(org).then((members) => {
                 this.setState({members: members})
             })
         })
