@@ -56,14 +56,11 @@ class GitHubGateway {
         })
     }
 
-    getMembers(org) {
+    getMembers() {
         let userId = this.jsonStore.get('id')
         let url = `${this.domain}/users/${userId}/github/members`
         return fetch(url, {
             method: 'GET',
-            headers: {
-                'Authorization': `token ${token}`
-            }
         }).then(response => {
             return response.json()
         })
