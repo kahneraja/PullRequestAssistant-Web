@@ -19,9 +19,9 @@ class UserGateway {
         })
     }
 
-    getOrgs() {
+    getGithubOrgs() {
         let userId = this.jsonStore.get('id')
-        let url = `${this.domain}/users/${userId}/orgs`
+        let url = `${this.domain}/users/${userId}/github/orgs`
         return fetch(url, {
             method: 'GET',
             headers: {
@@ -32,14 +32,13 @@ class UserGateway {
         })
     }
 
-    getMembers() {
-        let url = `${this.domain}/slack/members`
-        let token = this.jsonStore.get('slackToken')
+    getSlackMembers() {
+        let userId = this.jsonStore.get('id')
+        let url = `${this.domain}/users/${userId}/slack/members`
         return fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Slack-Token': token
+                'Content-Type': 'application/json'
             }
         }).then(response => {
             return response.json()

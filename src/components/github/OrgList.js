@@ -11,7 +11,7 @@ class OrgList extends Component {
     }
 
     componentDidMount() {
-        this.props.gitHubGateway.getOrgs().then((orgs) => {
+        this.props.userGateway.getGithubOrgs().then((orgs) => {
             this.setState({orgs: orgs})
         })
     }
