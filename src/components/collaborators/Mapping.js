@@ -27,18 +27,18 @@ class Mapping extends Component {
                 <Grid>
                     <Row className="show-grid">
                         <Col xs={6}>
-                            <div>SLACK</div>
-                            {
-                                this.state.slackMembers.map(member =>
-                                    <div key={member.id}>{member.profile.real_name} @{member.real_name}</div>
-                                )
-                            }
-                        </Col>
-                        <Col xs={6}>
                             <div>GITHUB</div>
                             {
                                 this.state.githubMembers.map(member =>
                                     <div key={member.id}>{member.name} @{member.login}</div>
+                                )
+                            }
+                        </Col>
+                        <Col xs={6}>
+                            <div>SLACK</div>
+                            {
+                                this.state.slackMembers.map(member =>
+                                    <div key={member.id}>{member.real_name} @{member.name}</div>
                                 )
                             }
                         </Col>
