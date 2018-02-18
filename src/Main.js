@@ -21,14 +21,10 @@ class Main extends Component {
         let jsonStore = new JsonStore()
         let githubGateway = new GithubGateway(
             process.env.REACT_APP_API_DOMAIN,
-            process.env.REACT_APP_GITHUB_CLIENT_ID,
-            process.env.REACT_APP_GITHUB_CLIENT_SECRET,
             jsonStore
         )
         let slackGateway = new SlackGateway(
             process.env.REACT_APP_API_DOMAIN,
-            process.env.REACT_APP_SLACK_CLIENT_ID,
-            process.env.REACT_APP_SLACK_CLIENT_SECRET,
             jsonStore
         )
         let userGateway = new UserGateway(

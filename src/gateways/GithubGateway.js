@@ -1,17 +1,13 @@
 class GithubGateway {
 
-    constructor(domain, clientId, clientSecret, jsonStore) {
+    constructor(domain, jsonStore) {
         this.domain = domain
-        this.clientId = clientId
-        this.clientSecret = clientSecret
         this.jsonStore = jsonStore
     }
 
     createToken(code) {
         let url = `${this.domain}/github/tokens`
         let body = {
-            'client_id': this.clientId,
-            'client_secret': this.clientSecret,
             'code': code
         }
 

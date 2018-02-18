@@ -1,9 +1,7 @@
 class SlackGateway {
 
-    constructor(domain, clientId, clientSecret, jsonStore) {
+    constructor(domain, jsonStore) {
         this.domain = domain
-        this.clientId = clientId
-        this.clientSecret = clientSecret
         this.jsonStore = jsonStore
     }
 
@@ -12,8 +10,6 @@ class SlackGateway {
         let url = `${this.domain}/users/${userId}/slack/tokens`
         let redirect_uri = `http://${window.location.host}/slack/authorization/token`
         let body = {
-            'client_id': this.clientId,
-            'client_secret': this.clientSecret,
             'code': code,
             'redirect_uri': redirect_uri
         }
