@@ -10,7 +10,7 @@ class MemberList extends Component {
     }
 
     componentDidMount() {
-        this.props.gitHubGateway.getMembers().then((members) => {
+        this.props.githubGateway.getMembers().then((members) => {
             this.setState({members: members})
         })
     }

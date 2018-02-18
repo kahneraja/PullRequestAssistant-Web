@@ -1,24 +1,25 @@
 import React, {Component} from 'react'
 import Home from "./components/Home"
 import Charts from "./components/Charts"
-import GitHubAuthorizationGrant from "./components/github/authorization/Grant"
-import GitHubAuthorizationToken from "./components/github/authorization/Token"
+import GithubAuthorizationGrant from "./components/github/authorization/Grant"
+import GithubAuthorizationToken from "./components/github/authorization/Token"
 import SlackAuthorizationGrant from "./components/slack/authorization/Grant"
 import SlackAuthorizationToken from "./components/slack/authorization/Token"
 import {Route, Switch} from "react-router-dom"
 import JsonStore from "./JsonStore"
-import GitHubGateway from "./gateways/GitHubGateway"
+import GithubGateway from "./gateways/GithubGateway"
 import OrgList from "./components/github/OrgList"
 import UserGateway from "./gateways/UserGateway"
 import SlackGateway from "./gateways/SlackGateway"
-import GitHubMemberList from "./components/github/MemberList"
+import GithubMemberList from "./components/github/MemberList"
 import SlackMemberList from "./components/slack/MemberList"
+import Mapping from "./components/collaborators/Mapping";
 
 class Main extends Component {
     render() {
 
         let jsonStore = new JsonStore()
-        let gitHubGateway = new GitHubGateway(
+        let githubGateway = new GithubGateway(
             process.env.REACT_APP_API_DOMAIN,
             process.env.REACT_APP_GITHUB_CLIENT_ID,
             process.env.REACT_APP_GITHUB_CLIENT_SECRET,
@@ -40,19 +41,19 @@ class Main extends Component {
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/charts' component={Charts}/>
-                    <Route path='/github/authorization/grant' component={GitHubAuthorizationGrant}/>
+                    <Route path='/github/authorization/grant' component={GithubAuthorizationGrant}/>
                     <Route path='/github/authorization/token' component={(props) =>
-                        <GitHubAuthorizationToken {...props} gitHubGateway={gitHubGateway}/>
+                        <GithubAuthorizationToken {...props} githubGateway={githubGateway}/>
                     }/>
                     <Route path='/github/members' component={(props) =>
-                        <GitHubMemberList {...props}
-                                          gitHubGateway={gitHubGateway}
+                        <GithubMemberList {...props}
+                                          githubGateway={githubGateway}
                                           userGateway={userGateway}
                         />
                     }/>
                     <Route path='/github/orgs' component={(props) =>
                         <OrgList {...props}
-                                 gitHubGateway={gitHubGateway}
+                                 githubGateway={githubGateway}
                                  userGateway={userGateway}
                         />
                     }/>
@@ -63,6 +64,12 @@ class Main extends Component {
                     <Route path='/slack/members' component={(props) =>
                         <SlackMemberList {...props}
                                          slackGateway={slackGateway}
+                        />
+                    }/>
+                    <Route path='/collaborators/mapping' component={(props) =>
+                        <Mapping {...props}
+                                 slackGateway={slackGateway}
+                                 githubGateway={githubGateway}
                         />
                     }/>
                 </Switch>

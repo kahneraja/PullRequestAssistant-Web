@@ -1,4 +1,4 @@
-class GitHubGateway {
+class GithubGateway {
 
     constructor(domain, clientId, clientSecret, jsonStore) {
         this.domain = domain
@@ -68,4 +68,4 @@ class GitHubGateway {
 
 }
 
-export default GitHubGateway
+export default GithubGateway
