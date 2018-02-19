@@ -8,7 +8,7 @@ class SlackGateway {
     createToken(code) {
         let userId = this.jsonStore.get('id')
         let url = `${this.domain}/users/${userId}/slack/tokens`
-        let redirect_uri = `http://${window.location.host}/slack/authorization/token`
+        let redirect_uri = `${window.location.protocol}//${window.location.host}/slack/authorization/token`
         let body = {
             'code': code,
             'redirect_uri': redirect_uri
