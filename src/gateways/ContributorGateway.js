@@ -7,7 +7,7 @@ class ContributorGateway {
 
     save(contributors) {
         let userId = this.jsonStore.get('id')
-        let url = `${this.domain}/contributors`
+        let url = `${this.domain}/users/${userId}/contributors`
         let body = {
             contributors: contributors
         }
