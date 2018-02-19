@@ -22,9 +22,7 @@ class SlackGateway {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            response.json().then((response) => {
-                this.jsonStore.set('slackToken', JSON.stringify(response.slack_token))
-            })
+            return response.json()
         })
     }
 
