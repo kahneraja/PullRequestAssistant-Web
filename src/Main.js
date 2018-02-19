@@ -9,11 +9,11 @@ import {Route, Switch} from "react-router-dom"
 import JsonStore from "./JsonStore"
 import GithubGateway from "./gateways/GithubGateway"
 import OrgList from "./components/github/OrgList"
-import UserGateway from "./gateways/UserGateway"
 import SlackGateway from "./gateways/SlackGateway"
 import GithubMemberList from "./components/github/MemberList"
 import SlackMemberList from "./components/slack/MemberList"
-import Mapping from "./components/collaborators/Mapping";
+import Mapping from "./components/contributors/Mapping";
+import ContributorGateway from "./gateways/ContributorGateway";
 
 class Main extends Component {
     render() {
@@ -27,7 +27,7 @@ class Main extends Component {
             process.env.REACT_APP_API_DOMAIN,
             jsonStore
         )
-        let userGateway = new UserGateway(
+        let contributorGateway = new ContributorGateway(
             process.env.REACT_APP_API_DOMAIN,
             jsonStore
         )
@@ -44,13 +44,11 @@ class Main extends Component {
                     <Route path='/github/members' component={(props) =>
                         <GithubMemberList {...props}
                                           githubGateway={githubGateway}
-                                          userGateway={userGateway}
                         />
                     }/>
                     <Route path='/github/orgs' component={(props) =>
                         <OrgList {...props}
                                  githubGateway={githubGateway}
-                                 userGateway={userGateway}
                         />
                     }/>
                     <Route path='/slack/authorization/grant' component={SlackAuthorizationGrant}/>
@@ -62,10 +60,11 @@ class Main extends Component {
                                          slackGateway={slackGateway}
                         />
                     }/>
-                    <Route path='/collaborators/mapping' component={(props) =>
+                    <Route path='/contributors/mapping' component={(props) =>
                         <Mapping {...props}
                                  slackGateway={slackGateway}
                                  githubGateway={githubGateway}
+                                 contributorGateway={contributorGateway}
                         />
                     }/>
                 </Switch>

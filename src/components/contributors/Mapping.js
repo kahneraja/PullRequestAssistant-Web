@@ -18,23 +18,32 @@ class Mapping extends Component {
             this.setState({githubMembers: members})
             this.props.slackGateway.getMembers().then((members) => {
                 this.setState({slackMembers: members})
-                this.autoPair()
             })
         })
     }
 
     autoPair() {
+        let contributors = []
         _.each(this.state.githubMembers, (githubMember) => {
             _.each(this.state.slackMembers, (slackMember) => {
-                if (githubMember && slackMember){
+                if (githubMember && slackMember) {
                     if (githubMember.name === slackMember.real_name) {
-                        this.addGithubContributor(githubMember)
-                        this.addSlackContributor(slackMember)
+                        let contributor = {
+                            github_member: githubMember,
+                            slack_member: slackMember
+                        }
+                        contributors.push(contributor)
                     }
                 }
             })
-
         })
+
+        _.each(contributors, (contributor) => {
+            this.clearGithubMember(contributor.github_member)
+            this.clearSlackMember(contributor.slack_member)
+        })
+
+        this.setState({contributors: contributors})
     }
 
     addGithubContributor(member) {
@@ -70,10 +79,23 @@ class Mapping extends Component {
         this.setState({slackMembers: members})
     }
 
+    save() {
+        let contributors = this.state.contributors.map(contributor => {
+            return {
+                github_name: contributor.github_member.login,
+                slack_name: contributor.slack_member.name
+            }
+        })
+        this.props.contributorGateway.save(contributors).then(() => {
+            this.props.history.push("/")
+        })
+    }
+
     render() {
         return (
             <div>
                 <h2>contributors</h2>
+                <div onClick={() => this.autoPair()}>Auto Pair</div>
                 <Grid>
                     <Row className="show-grid">
                         <Col xs={4}>
@@ -89,8 +111,8 @@ class Mapping extends Component {
                             <div>Contributors</div>
                             {
                                 this.state.contributors.map(contributor =>
-                                    <div key={contributor.github_name}>@{contributor.github_name} -
-                                        @{contributor.slack_name}</div>
+                                    <div key={contributor.github_member.login}>@{contributor.github_member.login} -
+                                        @{contributor.slack_member.name}</div>
                                 )
                             }
                         </Col>
@@ -107,7 +129,7 @@ class Mapping extends Component {
                         </Col>
                     </Row>
                 </Grid>
-
+                <div onClick={() => this.save()}>Save</div>
             </div>
         )
     }
