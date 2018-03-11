@@ -12,7 +12,7 @@ class Charts extends Component {
     }
 
     componentDidMount() {
-        fetch(`${process.env.REACT_APP_API_DOMAIN}/metrics`).then(response => {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/stats`).then(response => {
             response.json().then((json) => {
                 this.setState({metrics: json})
             })
