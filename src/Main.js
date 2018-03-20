@@ -15,7 +15,8 @@ import SlackMemberList from "./components/slack/MemberList"
 import Mapping from "./components/contributors/Mapping";
 import ContributorGateway from "./gateways/ContributorGateway";
 import BroadcastMessage from "./components/slack/BroadcastMessage";
-import AuditMessages from "./components/slack/AuditMessages";
+import AuditMessages from "./components/AuditMessages";
+import AuditMessageGateway from "./gateways/AuditMessageGateway";
 
 class Main extends Component {
   render() {
@@ -30,6 +31,10 @@ class Main extends Component {
       jsonStore
     )
     let contributorGateway = new ContributorGateway(
+      process.env.REACT_APP_API_DOMAIN,
+      jsonStore
+    )
+    let auditMessageGateway = new AuditMessageGateway(
       process.env.REACT_APP_API_DOMAIN,
       jsonStore
     )
@@ -59,8 +64,8 @@ class Main extends Component {
           <Route path='/slack/broadcast-message' component={(props) =>
             <BroadcastMessage {...props} slackGateway={slackGateway}/>
           }/>
-          <Route path='/slack/audit-messages' component={(props) =>
-            <AuditMessages {...props} slackGateway={slackGateway}/>
+          <Route path='/audit-messages' component={(props) =>
+            <AuditMessages {...props} auditMessageGateway={auditMessageGateway}/>
           }/>
           <Route path='/contributors/mapping' component={(props) =>
             <Mapping {...props}

@@ -10,7 +10,7 @@ class AuditMessages extends Component {
     }
 
     componentDidMount() {
-        this.props.slackGateway.getAuditMessages().then((messages) => {
+        this.props.auditMessageGateway.getMessages().then((messages) => {
             this.setState({messages: messages})
         })
     }
